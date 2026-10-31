@@ -1,9 +1,9 @@
-
 import java.util.*;
 
 public class TwoPointerAssignment {
 
     // PART A: Remove Duplicates
+    // Uses a separate list; checks each element against it. Time O(n^2), space O(n)
     public static int removeDuplicatesReference(int[] arr) {
         ArrayList<Integer> result = new ArrayList<>();
 
@@ -26,6 +26,7 @@ public class TwoPointerAssignment {
     }
 
     // PART A: Remove Duplicates - Optimized
+    // Slow/fast pointers, in-place. Time O(n), space O(1)
     public static int removeDuplicatesOptimized(int[] arr) {
         int n = arr.length;
 
@@ -33,19 +34,20 @@ public class TwoPointerAssignment {
             return 0;
         }
 
-        int slow = 0;
+        int slow = 0;   // index of the last unique element
 
         for (int fast = 1; fast < n; fast++) {
-            if (arr[fast] != arr[slow]) {
+            if (arr[fast] != arr[slow]) {   // new unique value found
                 slow++;
                 arr[slow] = arr[fast];
             }
         }
 
-        return slow + 1;
+        return slow + 1;   // count of unique elements
     }
 
     // PART B: Pair Sum
+    // Tries every pair (i, j) with i < j. Time O(n^2), space O(1)
     public static int[] pairSumBruteForce(int[] arr, int target) {
         int n = arr.length;
 
@@ -57,10 +59,11 @@ public class TwoPointerAssignment {
             }
         }
 
-        return new int[]{-1, -1};
+        return new int[]{-1, -1};   // no pair found
     }
 
     // PART B: Pair Sum - Optimized
+    // Two pointers from opposite ends. Time O(n), space O(1)
     public static int[] pairSumOptimized(int[] arr, int target) {
         if (arr.length < 2) {
             return new int[]{-1, -1};
@@ -76,14 +79,14 @@ public class TwoPointerAssignment {
                 return new int[]{left, right};
             }
             else if (sum < target) {
-                left++;
+                left++;    // sum too small, move to a larger value
             }
             else {
-                right--;
+                right--;   // sum too large, move to a smaller value
             }
         }
 
-        return new int[]{-1, -1};
+        return new int[]{-1, -1};   // no pair found
     }
 
     // Function to Display Array
