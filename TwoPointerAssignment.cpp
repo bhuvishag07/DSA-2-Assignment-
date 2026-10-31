@@ -4,6 +4,7 @@
 using namespace std;
 
 // PART A: Remove Duplicates - Reference Approach
+// Uses a separate list; checks each element against it. Time O(n^2), space O(n)
 int removeDuplicatesReference(const vector<int>& arr) {
     vector<int> result;
 
@@ -26,6 +27,7 @@ int removeDuplicatesReference(const vector<int>& arr) {
 }
 
 // PART A: Remove Duplicates - Optimized Approach
+// Slow/fast pointers, in-place. Time O(n), space O(1)
 int removeDuplicatesOptimized(vector<int>& arr) {
     int n = arr.size();
 
@@ -33,19 +35,20 @@ int removeDuplicatesOptimized(vector<int>& arr) {
         return 0;
     }
 
-    int slow = 0;
+    int slow = 0;   // index of the last unique element
 
     for (int fast = 1; fast < n; fast++) {
-        if (arr[fast] != arr[slow]) {
+        if (arr[fast] != arr[slow]) {   // new unique value found
             slow++;
             arr[slow] = arr[fast];
         }
     }
 
-    return slow + 1;
+    return slow + 1;   // count of unique elements
 }
 
 // PART B: Pair Sum - Brute Force Approach
+// Tries every pair (i, j) with i < j. Time O(n^2), space O(1)
 pair<int, int> pairSumBruteForce(const vector<int>& arr, int target) {
     int n = arr.size();
 
@@ -57,10 +60,11 @@ pair<int, int> pairSumBruteForce(const vector<int>& arr, int target) {
         }
     }
 
-    return {-1, -1};
+    return {-1, -1};   // no pair found
 }
 
 // PART B: Pair Sum - Optimized Approach
+// Two pointers from opposite ends. Time O(n), space O(1)
 pair<int, int> pairSumOptimized(const vector<int>& arr, int target) {
     int left = 0;
     int right = arr.size() - 1;
@@ -72,14 +76,14 @@ pair<int, int> pairSumOptimized(const vector<int>& arr, int target) {
             return {left, right};
         }
         else if (sum < target) {
-            left++;
+            left++;    // sum too small, move to a larger value
         }
         else {
-            right--;
+            right--;   // sum too large, move to a smaller value
         }
     }
 
-    return {-1, -1};
+    return {-1, -1};   // no pair found
 }
 
 // Function to Display Array
