@@ -1,5 +1,5 @@
-
 # PART A: Remove Duplicates
+# Uses a separate list; checks each element against it. Time O(n^2), space O(n)
 def removeDuplicatesReference(arr):
     result = []
 
@@ -18,23 +18,25 @@ def removeDuplicatesReference(arr):
 
 
 # PART A: Remove Duplicates - Optimized
+# Slow/fast pointers, in-place. Time O(n), space O(1)
 def removeDuplicatesOptimized(arr):
     n = len(arr)
 
     if n == 0:
         return 0
 
-    slow = 0
+    slow = 0   # index of the last unique element
 
     for fast in range(1, n):
-        if arr[fast] != arr[slow]:
+        if arr[fast] != arr[slow]:   # new unique value found
             slow += 1
             arr[slow] = arr[fast]
 
-    return slow + 1
+    return slow + 1   # count of unique elements
 
 
 # PART B: Pair Sum
+# Tries every pair (i, j) with i < j. Time O(n^2), space O(1)
 def pairSumBruteForce(arr, target):
     n = len(arr)
 
@@ -43,10 +45,11 @@ def pairSumBruteForce(arr, target):
             if arr[i] + arr[j] == target:
                 return (i, j)
 
-    return (-1, -1)
+    return (-1, -1)   # no pair found
 
 
 # PART B: Pair Sum - Optimized
+# Two pointers from opposite ends. Time O(n), space O(1)
 def pairSumOptimized(arr, target):
     if len(arr) < 2:
         return (-1, -1)
@@ -61,12 +64,12 @@ def pairSumOptimized(arr, target):
             return (left, right)
 
         elif total < target:
-            left += 1
+            left += 1    # sum too small, move to a larger value
 
         else:
-            right -= 1
+            right -= 1   # sum too large, move to a smaller value
 
-    return (-1, -1)
+    return (-1, -1)   # no pair found
 
 
 # Function to Display Array
